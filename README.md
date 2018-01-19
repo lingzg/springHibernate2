@@ -1,0 +1,2 @@
+# springHibernate2
+spring整合hibernate框架demo2
