@@ -16,6 +16,8 @@ import java.sql.Clob;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
@@ -29,7 +31,7 @@ import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 
-import net.sf.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 
 
 /**
@@ -1191,12 +1193,12 @@ public class StringUtil {
 		return null;
 	}
 	public static Map<String,Object> json2Map(String jsonStr) throws Exception {
-		JSONObject jsonObj =JSONObject.fromObject(jsonStr);
-		Iterator<String> nameItr =jsonObj.keys();
+		JSONObject jsonObj =JSONObject.parseObject(jsonStr);
+		Set<Entry<String, Object>> entrySet =jsonObj.entrySet();
 		Map<String, Object> outMap = new TreeMap<String, Object>();
-		while (nameItr.hasNext()) {
-			String name = nameItr.next();
-			Object value = jsonObj.get(name);
+		for (Entry<String, Object> entry : entrySet) {
+			String name = entry.getKey();
+			Object value = entry.getValue();
 			if("true".equalsIgnoreCase(String.valueOf(value))||"false".equalsIgnoreCase(String.valueOf(value))){
 				outMap.put(name, Boolean.parseBoolean(String.valueOf(value)));
 			}else{

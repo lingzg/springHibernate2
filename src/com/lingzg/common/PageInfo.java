@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 public class PageInfo {
 
@@ -121,9 +121,9 @@ public class PageInfo {
 		}
 		String sorts = params.getParameterAsString("sort");
 		if (!StringUtils.isBlank(sorts)) {
-			JSONArray jarr = JSONArray.fromObject(sorts);
+			JSONArray jarr = JSONArray.parseArray(sorts);
 			for (int i = 0; i < jarr.size(); i++) {
-				JSONObject obj = (JSONObject) jarr.get(i);
+				JSONObject obj = jarr.getJSONObject(i);
 				this.order = obj.getString("property");
 				this.orderFlag = obj.getString("direction");
 			}

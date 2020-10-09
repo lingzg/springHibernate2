@@ -2,19 +2,40 @@ package com.lingzg.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import com.lingzg.base.BaseEntity;
 
+@Entity
+@Table(name = "t_emp")
 public class Emp extends BaseEntity {
 
 	private static final long serialVersionUID = 2629767723662399783L;
 
+	@Column(name = "empno")
 	private Integer empno;
+	
+	@Column(name = "ename")
 	private String ename;
+	
+	@Column(name = "job")
 	private String job;
+	
+	@Column(name = "mgr")
 	private Integer mgr;
+	
+	@Column(name = "hiredate")
 	private Date hiredate;
+	
+	@Column(name = "sal")
 	private Double sal;
+	
+	@Column(name = "comm")
 	private Double comm;
+	
+	@Column(name = "deptno")
 	private Integer deptno;
 
 	public Integer getEmpno() {

@@ -16,13 +16,13 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.transform.ResultTransformer;
 import org.springframework.orm.ObjectRetrievalFailureException;
-import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.orm.hibernate4.HibernateTemplate;
 
 import com.lingzg.common.PageInfo;
 import com.lingzg.util.transformer.CamelResultTransformer;
 import com.lingzg.util.transformer.ClassResultTransformer;
-import com.lingzg.util.transformer.StartWithCaseResultTransformer;
 import com.lingzg.util.transformer.MapResultTransformer;
+import com.lingzg.util.transformer.StartWithCaseResultTransformer;
 
 public abstract class HibernateBaseDao<E,PK extends Serializable> implements IBaseDao<E, PK> {
 
@@ -42,7 +42,7 @@ public abstract class HibernateBaseDao<E,PK extends Serializable> implements IBa
 	@SuppressWarnings("unchecked")
 	public List<E> findAll(){
 		String hql="from "+getEntityClass().getSimpleName();
-		return getHibernateTemplate().find(hql);
+		return (List<E>) getHibernateTemplate().find(hql);
 	}
 	
 	public List<E> findByProperty(String propertyName, Object value){
@@ -59,7 +59,7 @@ public abstract class HibernateBaseDao<E,PK extends Serializable> implements IBa
 				hql.append(propertyNames[i]).append("=:").append(propertyNames[i]);
 			}
 		}
-		return getHibernateTemplate().findByNamedParam(hql.toString(), propertyNames, values);
+		return (List<E>) getHibernateTemplate().findByNamedParam(hql.toString(), propertyNames, values);
 	}
 	
 	public List<?> findByCriteria(DetachedCriteria criteria){
